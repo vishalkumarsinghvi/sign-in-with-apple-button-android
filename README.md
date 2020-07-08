@@ -120,6 +120,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
                        // Handle success
                        // result.authorizationCode
                        // result.idToken
+                       // result.user (Json: {"name":{"firstName":"Tim","lastName":"Apple"},"email":"abcdef@privaterelay.appleid.com"} )
                     }
                     is SignInWithAppleResult.Failure -> {
                       // Handle failure
