@@ -8,9 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.willowtreeapps.signinwithapplebutton.SignInWithAppleConfiguration;
 import com.willowtreeapps.signinwithapplebutton.SignInWithAppleCallback;
-import com.willowtreeapps.signinwithapplebutton.SignInWithAppleService;
+import com.willowtreeapps.signinwithapplebutton.SignInWithAppleConfiguration;
 import com.willowtreeapps.signinwithapplebutton.view.SignInWithAppleButton;
 
 import org.jetbrains.annotations.NotNull;
@@ -38,8 +37,9 @@ public class SampleJavaActivity extends AppCompatActivity {
 
         SignInWithAppleCallback callback = new SignInWithAppleCallback() {
             @Override
-            public void onSignInWithAppleSuccess(@NotNull String authorizationCode, @NotNull String idToken) {
+            public void onSignInWithAppleSuccess(@NotNull String authorizationCode, @NotNull String idToken, @NotNull String user) {
                 Toast.makeText(SampleJavaActivity.this, "authorizationCode : "+authorizationCode+"   \n   idToken : "+idToken, LENGTH_SHORT).show();
+                Log.d("SAMPLE_APP", "Optional user details (JSON):" + user);
             }
 
 

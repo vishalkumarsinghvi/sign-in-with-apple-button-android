@@ -35,7 +35,7 @@ class SampleActivity : AppCompatActivity() {
                         "authorizationCode : ${result.authorizationCode}   \n\n   idToken : ${result.idToken}",
                         LENGTH_SHORT
                     ).show()
-
+                    Log.d("SAMPLE_APP", "Optional user details (JSON): ${result.user}")
                 }
                 is SignInWithAppleResult.Failure -> {
                     Log.d("SAMPLE_APP", "Received error from Apple Sign In ${result.error.message}")
