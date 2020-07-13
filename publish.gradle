@@ -3,7 +3,7 @@ apply plugin: 'maven-publish'
 
 
 group = 'com.github.vishalkumarsinghvi'
-version = '0.5'
+version = '0.1'
 
 def siteUrl = 'https://github.com/vishalkumarsinghvi/sign-in-with-apple-button-android'
 def gitUrl = 'https://github.com/vishalkumarsinghvi/sign-in-with-apple-button-android.git'
