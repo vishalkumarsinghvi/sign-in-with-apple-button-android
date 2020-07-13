@@ -1,6 +1,7 @@
 package com.willowtreeapps.signinwithapplebutton
 
 import android.webkit.JavascriptInterface
+import com.google.gson.Gson
 import com.willowtreeapps.signinwithapplebutton.FormInterceptorInterface.Companion.CODE
 import com.willowtreeapps.signinwithapplebutton.FormInterceptorInterface.Companion.JS_TO_INJECT
 import com.willowtreeapps.signinwithapplebutton.FormInterceptorInterface.Companion.NAME
@@ -18,7 +19,10 @@ import com.willowtreeapps.signinwithapplebutton.FormInterceptorInterface.Compani
  * - [STATE] : a _nonce_ string set in [AuthenticationAttempt.create] that needs to match [expectedState];
  * - [CODE] : the authorization code that'll be used to authenticate the user.
  */
-class FormInterceptorInterface(private val expectedState: String,private val callback: (SignInWithAppleResult) -> Unit) {
+class FormInterceptorInterface(
+    private val expectedState: String,
+    private val callback: (SignInWithAppleResult) -> Unit
+) {
     @JavascriptInterface
     fun processFormData(formData: String) {
         val values = formData.split(FORM_DATA_SEPARATOR)
@@ -27,7 +31,7 @@ class FormInterceptorInterface(private val expectedState: String,private val cal
         val stateEncoded = values.find { it.startsWith(STATE) }
         val userEncoded = values.find { it.startsWith(USER) }
 
-        if (stateEncoded != null &&(codeEncoded != null || tokenEncoded!=null)) {
+        if (stateEncoded != null && (codeEncoded != null || tokenEncoded != null)) {
             val stateValue = stateEncoded.substringAfter(KEY_VALUE_SEPARATOR)
             val codeValue = codeEncoded?.substringAfter(KEY_VALUE_SEPARATOR)
             val idToken = tokenEncoded?.substringAfter(KEY_VALUE_SEPARATOR)
@@ -35,7 +39,10 @@ class FormInterceptorInterface(private val expectedState: String,private val cal
 
             if (stateValue == expectedState) {
                 // Success,
-                callback(SignInWithAppleResult.Success(codeValue?:"",idToken?:"", userValue ?: ""))
+
+                val user: SignInWithAppleResult.User =
+                    Gson().fromJson(userValue, SignInWithAppleResult.User::class.java)
+                callback(SignInWithAppleResult.Success(codeValue ?: "", idToken ?: "", user))
             } else {
                 // Error, state doesn't match.
                 callback(SignInWithAppleResult.Failure(IllegalArgumentException("state does not match")))

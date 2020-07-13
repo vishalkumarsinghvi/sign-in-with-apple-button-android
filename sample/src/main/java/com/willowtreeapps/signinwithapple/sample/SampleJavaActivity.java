@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.willowtreeapps.signinwithapplebutton.SignInWithAppleCallback;
 import com.willowtreeapps.signinwithapplebutton.SignInWithAppleConfiguration;
+import com.willowtreeapps.signinwithapplebutton.SignInWithAppleResult;
 import com.willowtreeapps.signinwithapplebutton.view.SignInWithAppleButton;
 
 import org.jetbrains.annotations.NotNull;
@@ -36,12 +37,13 @@ public class SampleJavaActivity extends AppCompatActivity {
                 .build();
 
         SignInWithAppleCallback callback = new SignInWithAppleCallback() {
+
             @Override
-            public void onSignInWithAppleSuccess(@NotNull String authorizationCode, @NotNull String idToken, @NotNull String user) {
+            public void onSignInWithAppleSuccess(@NotNull String authorizationCode, @NotNull String idToken, @NotNull SignInWithAppleResult.User user) {
                 Toast.makeText(SampleJavaActivity.this, "authorizationCode : "+authorizationCode+"   \n   idToken : "+idToken, LENGTH_SHORT).show();
                 Log.d("SAMPLE_APP", "Optional user details (JSON):" + user);
-            }
 
+            }
 
             @Override
             public void onSignInWithAppleFailure(@NonNull Throwable error) {

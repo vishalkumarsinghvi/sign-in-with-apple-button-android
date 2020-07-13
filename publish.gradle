@@ -2,11 +2,11 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 
 
-group = 'com.github.khaledshamieh'
-version = '0.4'
+group = 'com.github.vishalkumarsinghvi'
+version = '0.5'
 
-def siteUrl = 'https://github.com/KhaledShamieh/sign-in-with-apple-button-android'
-def gitUrl = 'https://github.com/KhaledShamieh/sign-in-with-apple-button-android.git'
+def siteUrl = 'https://github.com/vishalkumarsinghvi/sign-in-with-apple-button-android'
+def gitUrl = 'https://github.com/vishalkumarsinghvi/sign-in-with-apple-button-android.git'
 
 task sourcesJar(type: Jar) {
     archiveClassifier = 'sources'

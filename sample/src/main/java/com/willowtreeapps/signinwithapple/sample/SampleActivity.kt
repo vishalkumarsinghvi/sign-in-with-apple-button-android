@@ -3,7 +3,7 @@ package com.willowtreeapps.signinwithapple.sample
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
+import android.widget.Toast.LENGTH_LONG
 import androidx.appcompat.app.AppCompatActivity
 import com.willowtreeapps.signinwithapplebutton.SignInWithAppleConfiguration
 import com.willowtreeapps.signinwithapplebutton.SignInWithAppleResult
@@ -15,25 +15,34 @@ class SampleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sample)
 
-        val signInWithAppleButtonBlack: SignInWithAppleButton = findViewById(R.id.sign_in_with_apple_button_black)
-        val signInWithAppleButtonWhite: SignInWithAppleButton = findViewById(R.id.sign_in_with_apple_button_white)
-        val signInWithAppleButtonWhiteOutline: SignInWithAppleButton = findViewById(R.id.sign_in_with_apple_button_white_outline)
+        val signInWithAppleButtonBlack: SignInWithAppleButton =
+            findViewById(R.id.sign_in_with_apple_button_black)
+        val signInWithAppleButtonWhite: SignInWithAppleButton =
+            findViewById(R.id.sign_in_with_apple_button_white)
+        val signInWithAppleButtonWhiteOutline: SignInWithAppleButton =
+            findViewById(R.id.sign_in_with_apple_button_white_outline)
 
         // Replace clientId and redirectUri with your own values.
-        val configuration =  SignInWithAppleConfiguration.Builder()
-           .clientId("com.your.client.id.here")
-           .redirectUri("https://your-redirect-uri.com/callback")
-           .responseType(SignInWithAppleConfiguration.ResponseType.ALL)
-           .scope(SignInWithAppleConfiguration.Scope.ALL)
-           .build()
+        val configuration = SignInWithAppleConfiguration.Builder()
+            .clientId("com.your.client.id.here")
+            .redirectUri("https://your-redirect-uri.com/callback")
+            .responseType(SignInWithAppleConfiguration.ResponseType.ALL)
+            .scope(SignInWithAppleConfiguration.Scope.ALL)
+            .build()
 
         val callback: (SignInWithAppleResult) -> Unit = { result ->
             when (result) {
                 is SignInWithAppleResult.Success -> {
+                    Log.d(
+                        "SAMPLE_APP",
+                        "onCreate: " + result.authorizationCode + result.idToken + result.user
+                    )
                     Toast.makeText(
                         this,
-                        "authorizationCode : ${result.authorizationCode}   \n\n   idToken : ${result.idToken}",
-                        LENGTH_SHORT
+                        "authorizationCode : ${result.authorizationCode}   \n\n   idToken : ${result.idToken} \n" +
+                                "\n" +
+                                "   user : ${result.user}",
+                        LENGTH_LONG
                     ).show()
                     Log.d("SAMPLE_APP", "Optional user details (JSON): ${result.user}")
                 }
@@ -46,8 +55,20 @@ class SampleActivity : AppCompatActivity() {
             }
         }
 
-        signInWithAppleButtonBlack.setUpSignInWithAppleOnClick(supportFragmentManager, configuration, callback)
-        signInWithAppleButtonWhite.setUpSignInWithAppleOnClick(supportFragmentManager, configuration, callback)
-        signInWithAppleButtonWhiteOutline.setUpSignInWithAppleOnClick(supportFragmentManager, configuration, callback)
+        signInWithAppleButtonBlack.setUpSignInWithAppleOnClick(
+            supportFragmentManager,
+            configuration,
+            callback
+        )
+        signInWithAppleButtonWhite.setUpSignInWithAppleOnClick(
+            supportFragmentManager,
+            configuration,
+            callback
+        )
+        signInWithAppleButtonWhiteOutline.setUpSignInWithAppleOnClick(
+            supportFragmentManager,
+            configuration,
+            callback
+        )
     }
 }

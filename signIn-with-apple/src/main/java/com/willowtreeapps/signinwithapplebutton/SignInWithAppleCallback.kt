@@ -2,7 +2,7 @@ package com.willowtreeapps.signinwithapplebutton
 
 interface SignInWithAppleCallback {
 
-    fun onSignInWithAppleSuccess(authorizationCode: String, idToken: String, user: String)
+    fun onSignInWithAppleSuccess(authorizationCode: String, idToken: String, user: SignInWithAppleResult.User)
 
     fun onSignInWithAppleFailure(error: Throwable)
 
