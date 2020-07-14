@@ -39,10 +39,21 @@ class FormInterceptorInterface(
 
             if (stateValue == expectedState) {
                 // Success,
+                if (userValue != null) {
+                    val user: SignInWithAppleResult.User =
+                        Gson().fromJson(userValue, SignInWithAppleResult.User::class.java)
+                    callback(SignInWithAppleResult.Success(codeValue ?: "", idToken ?: "", user))
+                } else {
+                    callback(
+                        SignInWithAppleResult.Success(
+                            codeValue ?: "", idToken ?: "", SignInWithAppleResult.User(
+                                SignInWithAppleResult.Name("", "", ""), ""
+                            )
+                        )
+                    )
+                }
 
-                val user: SignInWithAppleResult.User =
-                    Gson().fromJson(userValue, SignInWithAppleResult.User::class.java)
-                callback(SignInWithAppleResult.Success(codeValue ?: "", idToken ?: "", user))
+
             } else {
                 // Error, state doesn't match.
                 callback(SignInWithAppleResult.Failure(IllegalArgumentException("state does not match")))
