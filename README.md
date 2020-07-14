@@ -57,13 +57,19 @@ From this setup, you will need two OAuth arguments to use this library:
 Include as a dependency using Gradle:
 
 ```groovy
-repositories {
-     jcenter()
-}
+Add it in your root build.gradle at the end of repositories:
 
-dependencies {
-    implementation 'com.github.khaledshamieh:signIn-with-apple:0.4'
-}
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+Step 2. Add the dependency
+
+	dependencies {
+	        implementation 'com.github.vishalkumarsinghvi:sign-in-with-apple-button-android:0.5'
+	}
 ```
 
 ### Configuration
